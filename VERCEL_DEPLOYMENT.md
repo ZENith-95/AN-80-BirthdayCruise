@@ -18,15 +18,14 @@ Before deploying, you need to configure environment variables in Vercel:
 3. Import your Git repository
 4. Before deploying, click on "Environment Variables" and add the following:
 
-| Name                     | Value                                        | Description                          |
-| ------------------------ | -------------------------------------------- | ------------------------------------ |
-| `MONGODB_URI`            | `mongodb+srv://username:password@cluster...` | Your MongoDB connection string       |
-| `EMAIL_USER`             | `your-email@gmail.com`                       | Gmail account for sending emails     |
-| `EMAIL_PASSWORD`         | `your-app-password`                          | Gmail app password                   |
-| `NEXT_PUBLIC_BASE_URL`   | `https://your-domain.vercel.app`             | Your deployed app URL                |
-| `ADMIN_USER`             | `admin`                                      | Admin username (server-side auth)    |
-| `ADMIN_PASSWORD`         | `your-secure-password`                       | Admin password (server-side auth)    |
-| `NEXT_PUBLIC_ADMIN_USER` | `admin`                                      | Admin username for UI display (safe) |
+| Name             | Value                                        | Description                         |
+| ---------------- | -------------------------------------------- | ----------------------------------- |
+| `MONGODB_URI`    | `mongodb+srv://username:password@cluster...` | Your MongoDB connection string      |
+| `EMAIL_USER`     | `your-email@gmail.com`                       | Gmail account for sending emails    |
+| `EMAIL_PASSWORD` | `your-app-password`                          | Gmail app password                  |
+| `BASE_URL`       | `https://your-domain.vercel.app`             | Your deployed app URL (server-side) |
+| `ADMIN_USER`     | `admin`                                      | Admin username (server-side auth)   |
+| `ADMIN_PASSWORD` | `your-secure-password`                       | Admin password (server-side auth)   |
 
 5. Click "Deploy"
 
@@ -44,10 +43,9 @@ npm install -g vercel
 vercel --env MONGODB_URI="mongodb+srv://username:password@cluster..." \
        --env EMAIL_USER="your-email@gmail.com" \
        --env EMAIL_PASSWORD="your-app-password" \
-       --env NEXT_PUBLIC_BASE_URL="https://your-domain.vercel.app" \
+       --env BASE_URL="https://your-domain.vercel.app" \
        --env ADMIN_USER="admin" \
-       --env ADMIN_PASSWORD="your-secure-password" \
-       --env NEXT_PUBLIC_ADMIN_USER="admin"
+       --env ADMIN_PASSWORD="your-secure-password"
 ```
 
 ### 3. Verify Deployment

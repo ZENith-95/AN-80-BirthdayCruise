@@ -46,8 +46,8 @@ npm install
 # MongoDB connection string
 MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/birthday-cruise
 
-# Base URL for API calls
-NEXT_PUBLIC_BASE_URL=http://localhost:3000
+# Base URL for API calls (server-side only)
+BASE_URL=http://localhost:3000
 
 # Email service configuration
 EMAIL_SERVER=smtp.example.com
@@ -94,18 +94,18 @@ The admin dashboard is available at `/admin/bookings`, protected by basic authen
 
 ## Environment Variables
 
-| Variable               | Description               |
-| ---------------------- | ------------------------- |
-| `MONGODB_URI`          | MongoDB connection string |
-| `NEXT_PUBLIC_BASE_URL` | Base URL for API calls    |
-| `EMAIL_SERVER`         | SMTP server for emails    |
-| `EMAIL_PORT`           | SMTP port                 |
-| `EMAIL_SECURE`         | Whether to use TLS        |
-| `EMAIL_USER`           | SMTP username             |
-| `EMAIL_PASSWORD`       | SMTP password             |
-| `EMAIL_FROM`           | From email address        |
-| `ADMIN_USER`           | Admin username            |
-| `ADMIN_PASSWORD`       | Admin password            |
+| Variable         | Description                        |
+| ---------------- | ---------------------------------- |
+| `MONGODB_URI`    | MongoDB connection string          |
+| `BASE_URL`       | Base URL for server-side API calls |
+| `EMAIL_SERVER`   | SMTP server for emails             |
+| `EMAIL_PORT`     | SMTP port                          |
+| `EMAIL_SECURE`   | Whether to use TLS                 |
+| `EMAIL_USER`     | SMTP username                      |
+| `EMAIL_PASSWORD` | SMTP password                      |
+| `EMAIL_FROM`     | From email address                 |
+| `ADMIN_USER`     | Admin username                     |
+| `ADMIN_PASSWORD` | Admin password                     |
 
 ## License
 

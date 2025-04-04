@@ -33,9 +33,8 @@ echo Don't forget to set up your environment variables in the Vercel dashboard:
 echo - MONGODB_URI
 echo - EMAIL_USER
 echo - EMAIL_PASSWORD
-echo - NEXT_PUBLIC_BASE_URL
+echo - BASE_URL
 echo - ADMIN_USER
 echo - ADMIN_PASSWORD
-echo - NEXT_PUBLIC_ADMIN_USER
 echo.
 echo IMPORTANT: Never use NEXT_PUBLIC_ prefix for passwords or other sensitive data! 
