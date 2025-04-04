@@ -8,20 +8,18 @@ export async function sendConfirmationEmail(booking: IBooking) {
       return true;
     }
 
-    const response = await fetch(
-      `${process.env.BASE_URL || ""}/api/send-email`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          to: booking.email,
-          subject: "Booking Confirmation - Anastasie's 80th Birthday Cruise",
-          html: generateConfirmationEmailHtml(booking),
-        }),
-      }
-    );
+    // Use relative URL instead of BASE_URL which will work in both development and production
+    const response = await fetch("/api/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        to: booking.email,
+        subject: "Booking Confirmation - Anastasie's 80th Birthday Cruise",
+        html: generateConfirmationEmailHtml(booking),
+      }),
+    });
 
     if (!response.ok) {
       throw new Error("Failed to send email");

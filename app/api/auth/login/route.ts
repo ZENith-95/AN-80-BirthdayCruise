@@ -6,17 +6,25 @@ export async function POST(req: NextRequest) {
   try {
     const { username, password } = await req.json();
 
+    console.log("Login attempt with username:", username);
+    console.log("Expected username:", process.env.ADMIN_USER);
+    // Don't log actual passwords, just log whether one exists
+    console.log("Admin password configured:", !!process.env.ADMIN_PASSWORD);
+
     // Validate credentials server-side
     const isValid =
       username === process.env.ADMIN_USER &&
       password === process.env.ADMIN_PASSWORD;
 
     if (!isValid) {
+      console.log("Authentication failed - invalid credentials");
       return NextResponse.json(
         { success: false, message: "Invalid credentials" },
         { status: 401 }
       );
     }
+
+    console.log("Authentication successful, setting cookie");
 
     // Create a secure HTTP-only cookie
     const cookie = serialize("admin-session", "true", {

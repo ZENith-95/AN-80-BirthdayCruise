@@ -16,6 +16,8 @@ export default function AdminLogin() {
     setLoading(true);
 
     try {
+      console.log("Attempting login with:", { username });
+
       // Call server-side authentication API
       const response = await fetch("/api/auth/login", {
         method: "POST",
@@ -28,15 +30,22 @@ export default function AdminLogin() {
       const data = await response.json();
 
       if (response.ok && data.success) {
+        console.log("Login successful, redirecting...");
         // Redirect to admin dashboard on success
         router.push("/admin/bookings");
       } else {
-        // Show error message
-        setError(data.message || "Invalid username or password");
+        // Show detailed error message
+        console.error("Login failed:", data);
+        setError(
+          data.message ||
+            "Invalid username or password. Make sure your server environment variables are set correctly."
+        );
       }
     } catch (err) {
-      setError("An error occurred during login");
-      console.error(err);
+      console.error("Login error:", err);
+      setError(
+        "An error occurred during login. Please check the console for details."
+      );
     } finally {
       setLoading(false);
     }
