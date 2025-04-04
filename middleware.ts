@@ -9,14 +9,29 @@ export function middleware(request: NextRequest) {
 
   // Check if the path is a protected route
   if (PROTECTED_ROUTES.some((route) => pathname.startsWith(route))) {
-    // Check for authenticated session - this is simplified
-    // In a real app, you'd use a session token and verify against your auth system
-    const isAuthenticated = request.cookies.has("admin-session");
+    // Skip authentication check for the login page
+    if (pathname === "/admin/login") {
+      return NextResponse.next();
+    }
 
-    if (!isAuthenticated && pathname !== "/admin/login") {
+    // Log cookie information for debugging
+    console.log("Checking authentication for path:", pathname);
+    console.log(
+      "Cookies present:",
+      request.cookies.getAll().map((c) => c.name)
+    );
+
+    // Check for authenticated session
+    const isAuthenticated = request.cookies.has("admin-session");
+    console.log("Authentication status:", isAuthenticated);
+
+    if (!isAuthenticated) {
       // Redirect to login if not authenticated
+      console.log("Not authenticated, redirecting to login");
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
+
+    console.log("Authentication successful, allowing access to:", pathname);
   }
 
   return NextResponse.next();

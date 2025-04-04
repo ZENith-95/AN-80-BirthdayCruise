@@ -27,11 +27,19 @@ export async function POST(req: NextRequest) {
     console.log("Authentication successful, setting cookie");
 
     // Create a secure HTTP-only cookie
-    const cookie = serialize("admin-session", "true", {
+    const cookieValue = serialize("admin-session", "true", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 3600, // 1 hour
+      sameSite: "lax", // Changed from strict to lax to allow redirects
+      maxAge: 7200, // 2 hours (extended from 1 hour)
+      path: "/",
+    });
+
+    console.log("Cookie created with options:", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 7200,
       path: "/",
     });
 
@@ -42,7 +50,8 @@ export async function POST(req: NextRequest) {
     });
 
     // Set the cookie in the response
-    response.headers.set("Set-Cookie", cookie);
+    response.headers.set("Set-Cookie", cookieValue);
+    console.log("Cookie header set:", cookieValue.substring(0, 30) + "...");
 
     return response;
   } catch (error: any) {

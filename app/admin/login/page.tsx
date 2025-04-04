@@ -31,8 +31,9 @@ export default function AdminLogin() {
 
       if (response.ok && data.success) {
         console.log("Login successful, redirecting...");
-        // Redirect to admin dashboard on success
-        router.push("/admin/bookings");
+        // Use window.location for a full page reload instead of router.push
+        // This ensures the browser fully recognizes the new auth cookie
+        window.location.href = "/admin/bookings";
       } else {
         // Show detailed error message
         console.error("Login failed:", data);
