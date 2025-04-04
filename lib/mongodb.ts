@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI as string;
+// Make MongoDB connection optional during build time
+const MONGODB_URI = process.env.MONGODB_URI || "";
 
-if (!MONGODB_URI) {
-  throw new Error("Please define the MONGODB_URI environment variable");
+// Only throw error during runtime, not during build
+if (!MONGODB_URI && process.env.NODE_ENV !== "production") {
+  console.warn("No MONGODB_URI found in environment variables");
 }
 
 interface CachedConnection {
@@ -18,6 +20,16 @@ if (!global.mongoose) {
 }
 
 export async function dbConnect() {
+  // Skip database connection if URI is not provided
+  if (!MONGODB_URI) {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("Please define the MONGODB_URI environment variable");
+    } else {
+      console.warn("Skipping database connection - MONGODB_URI not provided");
+      return null;
+    }
+  }
+
   if (cached.conn) {
     return cached.conn;
   }

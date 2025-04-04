@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 export default function AdminLogin() {
   const [username, setUsername] = useState("");
@@ -17,24 +16,23 @@ export default function AdminLogin() {
     setLoading(true);
 
     try {
-      // Compare with environment variables directly in client side
-      // For a production app, you would use a proper API call
-      if (
-        username === process.env.NEXT_PUBLIC_ADMIN_USER &&
-        password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD
-      ) {
-        // Set a cookie to indicate authenticated session
-        document.cookie = "admin-session=true; path=/; max-age=3600";
+      // Call server-side authentication API
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        // Redirect to admin dashboard on success
         router.push("/admin/bookings");
       } else {
-        // Simplified for demo - in production use API validation
-        // Hard-coded fallback for demonstration
-        if (username === "admin" && password === "password123") {
-          document.cookie = "admin-session=true; path=/; max-age=3600";
-          router.push("/admin/bookings");
-        } else {
-          setError("Invalid username or password");
-        }
+        // Show error message
+        setError(data.message || "Invalid username or password");
       }
     } catch (err) {
       setError("An error occurred during login");
@@ -105,9 +103,9 @@ export default function AdminLogin() {
         </form>
 
         <div className="mt-6 text-center text-sm text-gray-500">
-          <p>Default credentials: admin / password123</p>
+          <p>Default username: admin</p>
           <p className="mt-1">
-            (Environment variables override these defaults if set)
+            (Configure credentials in server environment variables)
           </p>
         </div>
       </div>

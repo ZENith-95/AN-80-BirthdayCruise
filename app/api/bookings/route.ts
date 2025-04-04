@@ -5,7 +5,15 @@ import { sendConfirmationEmail } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   try {
-    await dbConnect();
+    const db = await dbConnect();
+    // If database connection fails during build or missing env vars
+    if (!db) {
+      return NextResponse.json(
+        { success: false, error: "Database connection not available" },
+        { status: 503 }
+      );
+    }
+
     const body = await req.json();
 
     // Validate input
@@ -37,7 +45,15 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   try {
-    await dbConnect();
+    const db = await dbConnect();
+    // If database connection fails during build or missing env vars
+    if (!db) {
+      return NextResponse.json(
+        { success: false, error: "Database connection not available" },
+        { status: 503 }
+      );
+    }
+
     const bookings = await Booking.find({}).sort({ createdAt: -1 });
 
     return NextResponse.json({ success: true, data: bookings });

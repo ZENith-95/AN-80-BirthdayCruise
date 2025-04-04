@@ -8,7 +8,15 @@ interface Params {
 
 export async function GET(req: NextRequest, { params }: Params) {
   try {
-    await dbConnect();
+    const db = await dbConnect();
+    // If database connection fails during build or missing env vars
+    if (!db) {
+      return NextResponse.json(
+        { success: false, error: "Database connection not available" },
+        { status: 503 }
+      );
+    }
+
     const booking = await Booking.findById(params.id);
 
     if (!booking) {
@@ -29,7 +37,15 @@ export async function GET(req: NextRequest, { params }: Params) {
 
 export async function DELETE(req: NextRequest, { params }: Params) {
   try {
-    await dbConnect();
+    const db = await dbConnect();
+    // If database connection fails during build or missing env vars
+    if (!db) {
+      return NextResponse.json(
+        { success: false, error: "Database connection not available" },
+        { status: 503 }
+      );
+    }
+
     const booking = await Booking.findByIdAndDelete(params.id);
 
     if (!booking) {
@@ -53,7 +69,15 @@ export async function DELETE(req: NextRequest, { params }: Params) {
 
 export async function PATCH(req: NextRequest, { params }: Params) {
   try {
-    await dbConnect();
+    const db = await dbConnect();
+    // If database connection fails during build or missing env vars
+    if (!db) {
+      return NextResponse.json(
+        { success: false, error: "Database connection not available" },
+        { status: 503 }
+      );
+    }
+
     const body = await req.json();
 
     const booking = await Booking.findByIdAndUpdate(

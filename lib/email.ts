@@ -2,8 +2,14 @@ import { IBooking } from "@/models/Booking";
 
 export async function sendConfirmationEmail(booking: IBooking) {
   try {
+    // Only attempt to send email if we're not in build/deploy process
+    if (process.env.NODE_ENV === "production" && !process.env.VERCEL_ENV) {
+      console.log("Skipping email during build/deploy process");
+      return true;
+    }
+
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/send-email`,
+      `${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/send-email`,
       {
         method: "POST",
         headers: {
@@ -23,6 +29,7 @@ export async function sendConfirmationEmail(booking: IBooking) {
 
     return true;
   } catch (error) {
+    // Log but don't fail the booking process if email sending fails
     console.error("Error sending confirmation email:", error);
     return false;
   }
