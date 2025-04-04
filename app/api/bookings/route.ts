@@ -3,6 +3,12 @@ import { dbConnect } from "@/lib/mongodb";
 import { Booking, IBooking } from "@/models/Booking";
 import { sendConfirmationEmail } from "@/lib/email";
 
+// Helper function to check authentication
+const isAuthenticated = (req: NextRequest) => {
+  const cookies = req.cookies;
+  return cookies.has("admin-session");
+};
+
 export async function POST(req: NextRequest) {
   try {
     const db = await dbConnect();
@@ -34,7 +40,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, data: booking }, { status: 201 });
   } catch (error: any) {
-    console.error("Booking creation error:", error);
+    console.error("Booking creation error:", error.message);
 
     return NextResponse.json(
       { success: false, error: error.message || "Something went wrong" },
@@ -43,8 +49,16 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    // Check if user is authenticated for viewing bookings
+    if (!isAuthenticated(req)) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
     const db = await dbConnect();
     // If database connection fails during build or missing env vars
     if (!db) {
@@ -58,7 +72,7 @@ export async function GET() {
 
     return NextResponse.json({ success: true, data: bookings });
   } catch (error: any) {
-    console.error("Error fetching bookings:", error);
+    console.error("Error fetching bookings:", error.message);
 
     return NextResponse.json(
       { success: false, error: error.message || "Failed to fetch bookings" },

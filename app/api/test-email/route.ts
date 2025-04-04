@@ -3,6 +3,36 @@ import { NextRequest, NextResponse } from "next/server";
 // Import nodemailer with a type assertion to bypass TypeScript error
 const nodemailer = require("nodemailer") as any;
 
+// Function to create appropriate email transporter
+async function createTransporter() {
+  // For production, use the configured email service
+  if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
+    return nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // use SSL
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+  }
+
+  // For development/testing - generate a test account
+  const testAccount = await nodemailer.createTestAccount();
+
+  // Create a test SMTP service account from ethereal.email
+  return nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false,
+    auth: {
+      user: testAccount.user,
+      pass: testAccount.pass,
+    },
+  });
+}
+
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const email = searchParams.get("email") || process.env.EMAIL_USER;
@@ -16,25 +46,17 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    console.log(`Testing email functionality to: ${email}`);
+    // Create transporter with appropriate settings
+    const transporter = await createTransporter();
 
-    // Configure transporter
-    const transporter = nodemailer.createTransport({
-      service: "gmail", // Use Gmail service instead of SMTP settings
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-      tls: {
-        rejectUnauthorized: false,
-      },
-      // Debug mode during testing
-      debug: true,
-    });
+    // Verify connection
+    await transporter.verify();
 
     // Send test email
     const result = await transporter.sendMail({
-      from: `"Email Test" <${process.env.EMAIL_USER}>`,
+      from: process.env.EMAIL_USER
+        ? `"Email Test" <${process.env.EMAIL_USER}>`
+        : '"Email Test" <test@example.com>',
       to: email,
       subject: "Test Email from Birthday Cruise Website",
       html: `
@@ -50,7 +72,21 @@ export async function GET(req: NextRequest) {
       `,
     });
 
-    console.log("Email sent successfully:", result);
+    // If using ethereal test email, include the preview URL
+    if (result.messageId && result.messageId.includes("ethereal")) {
+      const previewUrl = nodemailer.getTestMessageUrl(result);
+
+      return NextResponse.json({
+        success: true,
+        message: "Test email sent successfully (using test account)",
+        details: {
+          messageId: result.messageId,
+          recipient: email,
+          timestamp: new Date().toISOString(),
+          previewUrl: previewUrl,
+        },
+      });
+    }
 
     return NextResponse.json({
       success: true,
@@ -62,17 +98,15 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (error: any) {
-    console.error("Error sending test email:", error);
+    console.error("Error sending test email:", error.message);
 
     return NextResponse.json(
       {
         success: false,
         error: error.message,
-        stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
         config: {
-          service: "gmail",
-          user: process.env.EMAIL_USER ? "✓ Set" : "✗ Not set",
-          pass: process.env.EMAIL_PASSWORD ? "✓ Set" : "✗ Not set",
+          emailUser: process.env.EMAIL_USER ? "✓ Set" : "✗ Not set",
+          emailPass: process.env.EMAIL_PASSWORD ? "✓ Set" : "✗ Not set",
         },
       },
       { status: 500 }

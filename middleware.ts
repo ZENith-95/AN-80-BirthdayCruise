@@ -14,24 +14,13 @@ export function middleware(request: NextRequest) {
       return NextResponse.next();
     }
 
-    // Log cookie information for debugging
-    console.log("Checking authentication for path:", pathname);
-    console.log(
-      "Cookies present:",
-      request.cookies.getAll().map((c) => c.name)
-    );
-
     // Check for authenticated session
     const isAuthenticated = request.cookies.has("admin-session");
-    console.log("Authentication status:", isAuthenticated);
 
     if (!isAuthenticated) {
       // Redirect to login if not authenticated
-      console.log("Not authenticated, redirecting to login");
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
-
-    console.log("Authentication successful, allowing access to:", pathname);
   }
 
   return NextResponse.next();

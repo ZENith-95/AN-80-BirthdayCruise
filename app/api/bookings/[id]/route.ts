@@ -6,6 +6,12 @@ interface Params {
   params: { id: string };
 }
 
+// Helper function to check authentication
+const isAuthenticated = (req: NextRequest) => {
+  const cookies = req.cookies;
+  return cookies.has("admin-session");
+};
+
 export async function GET(req: NextRequest, { params }: Params) {
   try {
     const db = await dbConnect();
@@ -37,6 +43,14 @@ export async function GET(req: NextRequest, { params }: Params) {
 
 export async function DELETE(req: NextRequest, { params }: Params) {
   try {
+    // Check if user is authenticated
+    if (!isAuthenticated(req)) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
     const db = await dbConnect();
     // If database connection fails during build or missing env vars
     if (!db) {
@@ -60,6 +74,7 @@ export async function DELETE(req: NextRequest, { params }: Params) {
       message: "Booking deleted successfully",
     });
   } catch (error: any) {
+    console.error("Error deleting booking:", error.message);
     return NextResponse.json(
       { success: false, error: error.message || "Failed to delete booking" },
       { status: 500 }
@@ -69,6 +84,14 @@ export async function DELETE(req: NextRequest, { params }: Params) {
 
 export async function PATCH(req: NextRequest, { params }: Params) {
   try {
+    // Check if user is authenticated
+    if (!isAuthenticated(req)) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
     const db = await dbConnect();
     // If database connection fails during build or missing env vars
     if (!db) {
@@ -95,6 +118,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
 
     return NextResponse.json({ success: true, data: booking });
   } catch (error: any) {
+    console.error("Error updating booking:", error.message);
     return NextResponse.json(
       { success: false, error: error.message || "Failed to update booking" },
       { status: 500 }

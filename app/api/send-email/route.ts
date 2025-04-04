@@ -9,78 +9,72 @@ type EmailPayload = {
   html: string;
 };
 
-// Log email configuration for debugging
-console.log("Email configuration:");
-console.log("- EMAIL_USER configured:", !!process.env.EMAIL_USER);
-console.log("- EMAIL_PASSWORD configured:", !!process.env.EMAIL_PASSWORD);
+// Configure a test account for development if no credentials are provided
+async function createTransporter() {
+  // For production, use the configured email service
+  if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
+    return nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // use SSL
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+  }
 
-// Configure email transport with Gmail-specific settings
-const transporter = nodemailer.createTransport({
-  service: "gmail", // Use Gmail service instead of custom SMTP settings
-  auth: {
-    user: process.env.EMAIL_USER || "",
-    pass: process.env.EMAIL_PASSWORD || "",
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
+  // For development/testing - generate a test account
+  const testAccount = await nodemailer.createTestAccount();
+
+  // Create a test SMTP service account from ethereal.email
+  return nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: testAccount.user, // generated ethereal user
+      pass: testAccount.pass, // generated ethereal password
+    },
+  });
+}
 
 export async function POST(req: NextRequest) {
   try {
     const { to, subject, html } = (await req.json()) as EmailPayload;
 
     if (!to || !subject || !html) {
-      console.error("Missing required email fields:", {
-        to,
-        subject,
-        htmlProvided: !!html,
-      });
       return NextResponse.json(
         { success: false, error: "Missing required fields" },
         { status: 400 }
       );
     }
 
-    console.log("Attempting to send email to:", to);
-    console.log("Email subject:", subject);
-
     // Send email with enhanced error handling
     try {
-      // Verify connection configuration first
-      console.log("Verifying email transport configuration...");
+      // Create appropriate transporter based on environment
+      const transporter = await createTransporter();
+
+      // Verify connection configuration
       await transporter.verify();
-      console.log("Email transport verification successful");
 
       // Send the email
-      const result = await transporter.sendMail({
-        from: `"Birthday Cruise" <${process.env.EMAIL_USER}>`, // Use EMAIL_USER instead of EMAIL_FROM
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER
+          ? `"Birthday Cruise" <${process.env.EMAIL_USER}>`
+          : '"Birthday Cruise" <test@example.com>',
         to,
         subject,
         html,
       });
-
-      console.log(
-        "Email sent successfully to:",
-        to,
-        "messageId:",
-        result.messageId
-      );
     } catch (emailError: any) {
-      console.error("Detailed email error:", emailError);
-      console.error("Email transport settings:", {
-        service: "gmail",
-        user: process.env.EMAIL_USER
-          ? `${process.env.EMAIL_USER.substring(0, 3)}...`
-          : "not set",
-        passConfigured: !!process.env.EMAIL_PASSWORD,
-      });
+      console.error("Email sending error:", emailError.message);
       throw new Error(`Email sending failed: ${emailError.message}`);
     }
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
-    console.error("Error in email API route:", error);
+    console.error("Error in email API route:", error.message);
 
     return NextResponse.json(
       { success: false, error: error.message || "Failed to send email" },

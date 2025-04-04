@@ -21,25 +21,25 @@ export default function AdminBookings() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  // Check if user is authenticated
-  useEffect(() => {
-    const isAuthenticated = document.cookie.includes("admin-session=true");
-    if (!isAuthenticated) {
-      router.push("/admin/login");
-    }
-  }, [router]);
-
   // Fetch bookings
   useEffect(() => {
     const fetchBookings = async () => {
       try {
+        console.log("Fetching bookings data...");
         const response = await fetch("/api/bookings");
 
         if (!response.ok) {
+          // If we get a 401 Unauthorized, handle it specially
+          if (response.status === 401) {
+            console.log("Unauthorized, redirecting to login");
+            router.push("/admin/login");
+            return;
+          }
           throw new Error("Failed to fetch bookings");
         }
 
         const result = await response.json();
+        console.log("Bookings data received", result.success);
 
         if (result.success) {
           setBookings(result.data);
@@ -47,24 +47,26 @@ export default function AdminBookings() {
           throw new Error(result.error || "Failed to fetch bookings");
         }
       } catch (err: any) {
+        console.error("Error fetching bookings:", err);
         setError(err.message);
-        console.error(err);
       } finally {
         setLoading(false);
       }
     };
 
     fetchBookings();
-  }, []);
+  }, [router]);
 
   const handleLogout = async () => {
     try {
+      console.log("Logging out...");
       const response = await fetch("/api/auth/logout", {
         method: "POST",
       });
 
       if (response.ok) {
-        router.push("/admin/login");
+        // Use window.location for a full page reload on logout
+        window.location.href = "/admin/login";
       }
     } catch (error) {
       console.error("Logout error:", error);

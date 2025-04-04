@@ -1,29 +1,59 @@
 import { IBooking } from "@/models/Booking";
+import nodemailer from "nodemailer";
+
+// Create email transporter
+async function createTransporter() {
+  // For production, use the configured email service
+  if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
+    // Return Gmail transport with SSL
+    return nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // use SSL
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+  }
+
+  // For development/testing - generate a test account
+  const testAccount = await nodemailer.createTestAccount();
+
+  // Create a test SMTP service account
+  return nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false,
+    auth: {
+      user: testAccount.user,
+      pass: testAccount.pass,
+    },
+  });
+}
 
 export async function sendConfirmationEmail(booking: IBooking) {
   try {
     // Only attempt to send email if we're not in build/deploy process
     if (process.env.NODE_ENV === "production" && !process.env.VERCEL_ENV) {
-      console.log("Skipping email during build/deploy process");
       return true;
     }
 
-    // Use relative URL instead of BASE_URL which will work in both development and production
-    const response = await fetch("/api/send-email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        to: booking.email,
-        subject: "Booking Confirmation - Anastasie's 80th Birthday Cruise",
-        html: generateConfirmationEmailHtml(booking),
-      }),
-    });
+    // Create appropriate transporter
+    const transporter = await createTransporter();
 
-    if (!response.ok) {
-      throw new Error("Failed to send email");
-    }
+    // Verify connection configuration
+    await transporter.verify();
+
+    // Send the email directly with nodemailer
+    const result = await transporter.sendMail({
+      from: process.env.EMAIL_USER
+        ? `"Birthday Cruise" <${process.env.EMAIL_USER}>`
+        : '"Birthday Cruise" <test@example.com>',
+      to: booking.email,
+      subject: "Booking Confirmation - Anastasie's 80th Birthday Cruise",
+      html: generateConfirmationEmailHtml(booking),
+    });
 
     return true;
   } catch (error) {
