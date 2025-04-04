@@ -114,7 +114,7 @@ export default function Footer() {
               <h3 className="text-2xl font-bold mb-6 text-turquoise-400">
                 Quick Links
               </h3>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="mt-4 space-y-2">
                 <Link
                   href="#home"
                   className="hover:text-coral-400 transition-colors duration-300"
@@ -150,6 +150,12 @@ export default function Footer() {
                   className="hover:text-coral-400 transition-colors duration-300"
                 >
                   Travel Tips
+                </Link>
+                <Link
+                  href="/admin"
+                  className="hover:text-coral-400 transition-colors duration-300"
+                >
+                  Admin
                 </Link>
               </div>
             </div>

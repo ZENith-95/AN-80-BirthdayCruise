@@ -22,22 +22,26 @@ export default function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const scrollToSection = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
     e.preventDefault();
     const targetId = href.replace("#", "");
     const element = document.getElementById(targetId);
-    
+
     if (element) {
       const headerOffset = 80; // Adjust this value based on your header height
       const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: "smooth"
+        behavior: "smooth",
       });
     }
-    
+
     setIsOpen(false); // Close mobile menu if open
   };
 
