@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins, Dancing_Script } from "next/font/google";
 import { Providers } from "./providers";
+// import "/favicon_ana.png"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
   title: "Ana's 80th Birthday Cruise Celebration",
   description:
     "Join us for a 7-Day Western Caribbean Adventure to celebrate Mom's 80th birthday!",
+  icons: {
+    icon: '/favicon_ana.png',
+  },
 };
 
 export default function RootLayout({

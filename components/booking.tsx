@@ -85,7 +85,7 @@ export default function Booking() {
                         <a
                           target="_blank"
                           href="mailto:eulavais@gmail.com"
-                          className="flex items-center text-gray-600 hover:text-coral-500"
+                          className="flex items-center text-coral-400 hover:text-coral-700"
                         >
                           <Mail className="h-4 w-4 mr-2 text-coral-500" />
                           eulavais@gmail.com
@@ -93,23 +93,27 @@ export default function Booking() {
                         <a
                           target="_blank"
                           href="tel:9739419652"
-                          className="flex items-center text-gray-600 hover:text-coral-500"
+                          className="flex items-center text-coral-400 bold hover:text-coral-700"
                         >
                           <Phone className="h-4 w-4 mr-2 text-coral-500" />
-                          +1 (973) 941-9652 <span> - (Laurine)</span>
+                          <div className="flex-wrap">
+                            <p>+1 (973) 941-9652</p> <p>(Laurine)</p>
+                          </div>
                         </a>
                         <a
                           target="_blank"
                           href="tel:9739419652"
-                          className="flex items-center text-gray-600 hover:text-coral-500"
+                          className="flex items-center text-coral-400 bold hover:text-coral-700"
                         >
                           <Phone className="h-4 w-4 mr-2 text-coral-500" />
-                          +1 (862) 444-9872 <span> - (Genevieve)</span>
+                          <div className="flex flex-wrap">
+                            <p>+1 (862) 444-9872</p> <p>(Genevieve)</p>
+                          </div>
                         </a>
                         <a
                           target="_blank"
                           href="https://wa.me/19739419652"
-                          className="flex items-center text-gray-600 hover:text-coral-500"
+                          className="flex items-center text-coral-400 bold hover:text-coral-700"
                         >
                           <svg
                             viewBox="0 0 24 24"
@@ -125,7 +129,7 @@ export default function Booking() {
                   </div>
                 </div>
               </div>
-              <div className="flex items-start">
+              <div className="flex items-start mt-8">
                 <div className="flex-shrink-0 mt-1">
                   <CreditCard className="h-6 w-6 text-coral-500" />
                 </div>
@@ -134,7 +138,7 @@ export default function Booking() {
                     Payment Details
                   </h4>
                   <div className="space-y-2">
-                    <p className="flex gap-1 items-center text-gray-600">
+                    <p className="flex flex-wrap gap-1 items-center text-gray-600">
                       <span className="h-1.5 w-1.5 rounded-full bg-coral-500 mr-2"></span>
                       First deposit of
                       <span className="text-coral-500 font-semibold mx-1">
@@ -147,7 +151,7 @@ export default function Booking() {
                       to secure your spot
                     </p>
 
-                    <p className="flex gap-1 items-center text-gray-600">
+                    <p className="flex flex-wrap gap-1 items-center text-gray-600">
                       <span className="h-1.5 w-1.5 rounded-full bg-coral-500 mr-2"></span>
                       Pay
                       <span className="text-coral-500 font-semibold mx-1">
@@ -156,7 +160,7 @@ export default function Booking() {
                       for the assigned cabin of your choice
                     </p>
 
-                    <p className="flex gap-1 items-center text-gray-600">
+                    <p className="flex flex-wrap gap-1 items-center text-gray-600">
                       <span className="h-1.5 w-1.5 rounded-full bg-coral-500 mr-2"></span>
                       Full payment due by
                       <span className="text-coral-500 font-semibold ml-1">
