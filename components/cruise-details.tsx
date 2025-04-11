@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Calendar, Ship, MapPin } from "lucide-react"
+import { Calendar, Ship, BookOpenCheck } from "lucide-react"
 
 export default function CruiseDetails() {
   const fadeInUp = {
@@ -114,8 +114,9 @@ export default function CruiseDetails() {
               <Calendar className="w-8 h-8 text-white" />
             </div>
             <h3 className="text-2xl font-bold text-white mb-2">Dates</h3>
-            <p className="text-turquoise-100">May 11–17, 2026</p>
-            <p className="text-turquoise-100 mt-2">Departing from Tampa, FL</p>
+            <p className="text-coral-400">May 11–17, 2026</p>
+            <p className="text-coral-400 mt-2">Departing from Tampa, FL</p>
+            <p className="text-coral-400 mt-2"><span className="text-turquoise-100">Cruise Line:</span> Carnival Cruise Line</p>
           </motion.div>
 
           <motion.div
@@ -129,9 +130,10 @@ export default function CruiseDetails() {
             <div className="bg-turquoise-400 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 transform group-hover:scale-110 transition-transform duration-300">
               <Ship className="w-8 h-8 text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-2">Ship</h3>
-            <p className="text-turquoise-100"> [TBD] </p>
-            <p className="text-turquoise-100 mt-2"> [TBD] </p>
+            <h3 className="text-2xl font-bold text-white mb-2">Contact Details</h3>
+            <p className="text-turquoise-100"> Contact: <span className="text-turquoise-300">Carnival Cruise Line</span> </p>
+            <p className="text-turquoise-100 mt-2"> For Reservation: <span className="text-turquoise-300">1800-819-3902</span> </p>
+            <p className="text-turquoise-100 mt-2"> <span className="text-turquoise-300">ext 70232:</span> For group sales </p>
           </motion.div>
 
           <motion.div
@@ -143,14 +145,13 @@ export default function CruiseDetails() {
             className="bg-turquoise-700/50 backdrop-blur-sm rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 border-t-4 border-gold-400 group hover:-translate-y-2"
           >
             <div className="bg-gold-400 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 transform group-hover:scale-110 transition-transform duration-300">
-              <MapPin className="w-8 h-8 text-white" />
+              <BookOpenCheck className="w-8 h-8 text-white" />
             </div>
             <h3 className="text-2xl font-bold text-white mb-2">
-              Ports of Call
+              Booking Details
             </h3>
-            <p className="text-turquoise-100"> [TBD] </p>
-            <p className="text-turquoise-100"> [TBD] </p>
-            <p className="text-turquoise-100"></p>
+            <p className="text-turquoise-100"> Booking Number: <span className="text-gold-300">CR59M8</span> </p>
+            <p className="text-turquoise-100"> Group Name: <span className="text-gold-300">Ana's 80th Birthday </span></p>
           </motion.div>
         </div>
       </div>

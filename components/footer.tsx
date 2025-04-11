@@ -68,15 +68,18 @@ export default function Footer() {
             <div className="space-y-4">
               <div className="flex items-center">
                 <Phone className="w-5 h-5 mr-3 text-coral-400" />
-                <span>(555) 123-4567</span>
+                <div className="flex flex-col ">
+                  <p> +1 (973) 941-9652 (Laurine)</p>
+                  <p> +1 (862) 444-9872 (Genevieve)</p>
+                </div>
               </div>
               <div className="flex items-center">
                 <Mail className="w-5 h-5 mr-3 text-coral-400" />
-                <span>moms80thcruise@example.com</span>
+                <span> eulavais@gmail.com</span>
               </div>
             </div>
 
-            <div className="mt-8">
+            {/* <div className="mt-8">
               <h4 className="text-lg font-semibold mb-4 text-turquoise-400">
                 Follow & Share
               </h4>
@@ -100,7 +103,7 @@ export default function Footer() {
                   <Twitter className="w-6 h-6" />
                 </Link>
               </div>
-            </div>
+            </div> */}
           </motion.div>
 
           <motion.div
@@ -114,7 +117,7 @@ export default function Footer() {
               <h3 className="text-2xl font-bold mb-6 text-turquoise-400">
                 Quick Links
               </h3>
-              <div className="mt-4 space-y-2">
+              <div className="mt-4 flex flex-col md:grid md:grid-cols-3 md:gap-1 space-y-2 md:space-y-0">
                 <Link
                   href="#home"
                   className="hover:text-coral-400 transition-colors duration-300"
@@ -139,24 +142,24 @@ export default function Footer() {
                 >
                   Itinerary
                 </Link>
-                <Link
+                {/* <Link
                   href="#booking"
                   className="hover:text-coral-400 transition-colors duration-300"
                 >
                   Booking
-                </Link>
+                </Link> */}
                 <Link
                   href="#travel-tips"
                   className="hover:text-coral-400 transition-colors duration-300"
                 >
                   Travel Tips
                 </Link>
-                <Link
+                {/* <Link
                   href="/admin"
                   className="hover:text-coral-400 transition-colors duration-300"
                 >
                   Admin
-                </Link>
+                </Link> */}
               </div>
             </div>
 

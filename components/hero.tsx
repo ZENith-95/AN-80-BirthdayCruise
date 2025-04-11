@@ -7,6 +7,22 @@ import Image from "next/image";
 import heroImage from "@/public/hero-cruise.jpg";
 import heroImage2 from "@/public/cruise.jpeg";
 import { useEffect } from "react";
+import { Great_Vibes, Playfair_Display } from "next/font/google";
+
+const greatVibes = Great_Vibes({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-great-vibes",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-playfair",
+});
+
+// Note: dancingScript should already be defined in your layout.tsx
+// If you need to use it here, you'll need to pass it as a prop or define it here similarly
 
 export default function Hero() {
   return (
@@ -22,8 +38,9 @@ export default function Hero() {
           fill
           priority
           className="object-cover"
+          style={{ filter: "brightness(0.9)" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/60"></div> {/* Increased overlay opacity */}
       </div>
 
       {/* Animated wave overlay */}
@@ -57,7 +74,7 @@ export default function Hero() {
         transition={{ duration: 1, delay: 0.5 }}
         className="absolute top-20 left-10 md:left-20 z-10"
       >
-        <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-coral-500/80 blur-md"></div>
+        <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-turquoise-500/80 blur-md"></div>
       </motion.div>
 
       <motion.div
@@ -66,7 +83,7 @@ export default function Hero() {
         transition={{ duration: 1, delay: 0.7 }}
         className="absolute bottom-40 right-10 md:right-20 z-10"
       >
-        <div className="w-20 h-20 md:w-32 md:h-32 rounded-full bg-turquoise-500/80 blur-md"></div>
+        <div className="w-20 h-20 md:w-32 md:h-32 rounded-full bg-gold-500/80 blur-md"></div>
       </motion.div>
 
       <div className="container mx-auto px-4 z-20 text-center">
@@ -77,19 +94,27 @@ export default function Hero() {
           className="max-w-4xl mx-auto"
         >
           <div className="mb-6">
-            <p className="text-xl w-fit md:text-2xl text-white font-fa ml-[30%] transform rotate-[-20deg] ">
+            <p
+              className={`text-3xl ${greatVibes.className} w-fit md:text-4xl text-gold-300 ml-[20%] transform rotate-[-20deg] drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]`}
+            >
               Ahoy!
             </p>
-            <span className="inline-block text-xl md:text-2xl text-white font-light mb-2">
-              LET'S CELEBRATE
+            <span
+              className={`inline-block text-2xl md:text-3xl text-gold-200 font-light mb-2 ${playfair.className}`}
+            >
+              JOIN US AS WE CELEBRATE
             </span>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-4 drop-shadow-lg">
-              <span className="block mb-6">Anastasie Nervais&apos;</span>
+            <h1
+              className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-4 drop-shadow-lg font-dancing-script`}
+            >
+              <span className="block mb-6 bg-gradient-to-r from-gold-200 to-pink-200 text-transparent bg-clip-text">
+                Anastasie Nervais&apos;
+              </span>
               <span className="text-turquoise-200 relative">
-                <span className="relative z-10">
-                  80<sup>th</sup> Birthday
+                <span className="relative z-10 bg-gradient-to-r from-gold-300 via-pink-200 to-turquoise-200 text-transparent bg-clip-text">
+                  80<sup className="text-gold-300">th</sup> Birthday
                 </span>
-                <span className="absolute inset-0 bg-gradient-to-r from-gold-400 to-coral-500 opacity-50 blur-lg z-0"></span>
+                <span className="absolute inset-0 bg-gradient-to-r from-gold-400 via-pink-400 to-turquoise-400 opacity-20 blur-lg z-0"></span>
               </span>
             </h1>
           </div>
@@ -100,8 +125,10 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="relative inline-block"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-turquoise-400 to-turquoise-200 opacity-50 blur-md"></div>
-            <p className="relative text-xl md:text-2xl text-turquoise-900 mb-8 px-4 py-2 font-medium">
+            <div className="absolute inset-0 bg-gradient-to-r from-turquoise-400 to-turquoise-200 rounded-xl opacity-30 blur-md"></div>
+            <p
+              className={`relative text-2xl md:text-3xl text-white mb-8 px-6 py-3 font-medium ${playfair.className}`}
+            >
               A 7-Day Western Caribbean Adventure – May 11–17, 2025
             </p>
           </motion.div>
@@ -114,9 +141,9 @@ export default function Hero() {
           >
             <Link
               href="#booking"
-              className="inline-block bg-gradient-to-r from-coral-500 to-coral-600 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:from-coral-600 hover:to-coral-700 shadow-md"
+              className="inline-block bg-gradient-to-r from-gold-400 to-pink-400 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:from-gold-500 hover:to-pink-500 shadow-md"
             >
-              Reserve Your Cabin!
+              Important Information
             </Link>
           </motion.div>
         </motion.div>

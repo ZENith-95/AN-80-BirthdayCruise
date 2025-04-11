@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Utensils, GlassWater, Compass } from "lucide-react"
+import { Utensils, Wine, Compass } from "lucide-react"
 
 export default function CelebrationHighlights() {
   const fadeInUp = {
@@ -63,12 +63,12 @@ export default function CelebrationHighlights() {
             <div className="bg-gradient-to-br from-coral-400 to-coral-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
               <Utensils className="w-10 h-10 text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-3">Sunset Group Dinner</h3>
+            <h3 className="text-2xl font-bold text-gray-800 mb-3">Captain's Toast/Dinner</h3>
             <p className="text-gray-600">
-              Join us for an elegant dinner with ocean views in a private dining room to celebrate Mom's special day.
+              Join us for a toast and an elegant dinner with ocean views in a private dining room to celebrate Mom's special day.
             </p>
             <div className="mt-6 pt-6 border-t border-gray-100">
-              <p className="text-sm font-medium text-turquoise-600">May 14th, 7:00 PM</p>
+              {/* <p className="text-sm font-medium text-turquoise-600">May 14th, 7:00 PM</p> */}
               <p className="text-xs text-gray-500 mt-1">Formal attire requested</p>
             </div>
           </motion.div>
@@ -82,14 +82,14 @@ export default function CelebrationHighlights() {
             className="bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
           >
             <div className="bg-gradient-to-br from-turquoise-400 to-turquoise-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
-              <GlassWater className="w-10 h-10 text-white" />
+              <Wine className="w-10 h-10 text-white" />
             </div>
             <h3 className="text-2xl font-bold text-gray-800 mb-3">Special Onboard Toast</h3>
             <p className="text-gray-600">
               A champagne celebration with all guests to honor Mom's 80 years of joy, wisdom, and adventures.
             </p>
             <div className="mt-6 pt-6 border-t border-gray-100">
-              <p className="text-sm font-medium text-turquoise-600">May 15th, 4:00 PM</p>
+              {/* <p className="text-sm font-medium text-turquoise-600">May 15th, 4:00 PM</p> */}
               <p className="text-xs text-gray-500 mt-1">Sunset Deck</p>
             </div>
           </motion.div>
@@ -105,7 +105,7 @@ export default function CelebrationHighlights() {
             <div className="bg-gradient-to-br from-gold-400 to-gold-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
               <Compass className="w-10 h-10 text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-3">Optional Excursions</h3>
+            <h3 className="text-2xl font-bold text-gray-800 mb-3">Fun Days & Optional Excursions</h3>
             <p className="text-gray-600">
               Join Us for special group excursions including beach days, and cultural tours.
             </p>

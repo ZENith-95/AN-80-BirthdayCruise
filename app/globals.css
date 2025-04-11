@@ -59,9 +59,6 @@
 }
 
 @layer base {
-
-  
-  
   html {
     scroll-behavior: smooth;
   }
@@ -383,5 +380,9 @@
   }
   .border-gold-900 {
     border-color: var(--gold-900);
+  }
+
+  .font-dancing-script {
+    font-family: var(--font-dancing-script);
   }
 }

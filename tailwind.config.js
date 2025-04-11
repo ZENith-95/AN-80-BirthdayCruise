@@ -46,6 +46,12 @@ module.exports = {
           800: "var(--gold-800)",
           900: "var(--gold-900)",
         },
+        pink: {
+          200: "#ffb6c1",
+          300: "#ff69b4",
+          400: "#ff1493",
+          500: "#ff69b4",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
