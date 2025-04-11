@@ -14,47 +14,47 @@ export default function Itinerary() {
     },
     {
       date: "May 12",
-      title: "Relax & Explore the Ship 🌊",
+      title: "Fun Day at Sea 🌊",
       description: "Enjoy the pools, entertainment, and onboard activities.",
       icon: <Waves className="w-8 h-8 text-white" />,
-      color: "bg-turquoise-500",
+      color: "bg-coral-300",
     },
     {
       date: "May 13",
-      title: "Cozumel, Mexico 🏝️",
-      description: "Swim, Shop, or Snorkel in this beautiful Mexican island.",
-      icon: <PalmTree className="w-8 h-8 text-white" />,
-      color: "bg-gold-500",
+      title: "Isla Tropicale, Roatán 🌴",
+      description: "Discover this tropical paradise in Honduras.",
+      icon: <Umbrella className="w-8 h-8 text-white" />,
+      color: "bg-turquoise-300",
     },
     {
       date: "May 14",
-      title: "Grand Cayman 🐠",
+      title: "Belize 🐠",
       description: "Stingrays & Seven Mile Beach adventures await.",
       icon: <Fish className="w-8 h-8 text-white" />,
-      color: "bg-coral-500",
+      color: "bg-turquoise-500",
     },
     {
       date: "May 15",
-      title: "Mahogany Bay, Roatán 🌴",
-      description: "Discover this tropical paradise in Honduras.",
-      icon: <Umbrella className="w-8 h-8 text-white" />,
-      color: "bg-turquoise-500",
+      title: "Cozumel, Mexico 🏝️",
+      description: "Swim, Shop, or Snorkel in this beautiful Mexican island.",
+      icon: <PalmTree className="w-8 h-8 text-white" />,
+      color: "bg-turquoise-300",
     },
     {
       date: "May 16",
       title: "Fun Day at Sea 🍹",
       description: "Pool Parties & Pampering on our final day at sea.",
       icon: <Cocktail className="w-8 h-8 text-white" />,
-      color: "bg-gold-500",
+      color: "bg-gold-300",
     },
     {
       date: "May 17",
-      title: "Return to Tampa",
+      title: "Return to Tampa 🚢",
       description: "Disembark with wonderful memories of our celebration.",
       icon: <Home className="w-8 h-8 text-white" />,
-      color: "bg-coral-500",
+      color: "bg-gold-500",
     },
-  ]
+  ];
 
   return (
     <section id="itinerary" className="relative py-20 bg-gradient-to-b from-turquoise-50 to-white overflow-hidden">
@@ -76,7 +76,7 @@ export default function Itinerary() {
             <div className="w-20 h-1 bg-turquoise-500 mx-auto mt-4"></div>
           </div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Seven days of celebration, relaxation, and adventure await!
+            Six days of celebration, relaxation, and adventure await!
           </p>
         </motion.div>
 
@@ -96,17 +96,17 @@ export default function Itinerary() {
               >
                 {/* Timeline dot */}
                 <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
-                  <div className={`w-16 h-16 rounded-full ${day.color} flex items-center justify-center shadow-lg`}>
+                  <div className={`w-10 h-10 md:w-16 md:h-16 rounded-full ${day.color} flex items-center justify-center shadow-lg`}>
                     {day.icon}
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className={`w-5/12 ${index % 2 === 0 ? "pr-8 text-right" : "pl-8 text-left"}`}>
-                  <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100">
-                    <h3 className="text-xl font-bold text-gray-800">{day.date}</h3>
-                    <h4 className="text-lg font-semibold text-turquoise-600 mb-2">{day.title}</h4>
-                    <p className="text-gray-600">{day.description}</p>
+                <div className={`w-5/12 ${index % 2 === 0 ? "pr-4 md:pr-8 text-right" : "pl-4 md:pl-8 text-left"}`}>
+                  <div className="bg-white p-3 md:p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100">
+                    <h3 className="text-lg md:text-xl font-bold text-gray-800">{day.date}</h3>
+                    <h4 className="text-base md:text-lg font-semibold text-turquoise-600 mb-1 md:mb-2">{day.title}</h4>
+                    <p className="text-sm md:text-base text-gray-600">{day.description}</p>
                   </div>
                 </div>
 

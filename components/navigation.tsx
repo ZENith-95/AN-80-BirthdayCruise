@@ -50,7 +50,7 @@ export default function Navigation() {
     { name: "Cruise Details", href: "#cruise-details" },
     { name: "Highlights", href: "#highlights" },
     { name: "Itinerary", href: "#itinerary" },
-    { name: "Booking", href: "#booking" },
+    // { name: "Booking", href: "#booking" },
     { name: "Travel Tips", href: "#travel-tips" },
   ];
 
@@ -69,11 +69,11 @@ export default function Navigation() {
             <Link
               href="#home"
               onClick={(e) => scrollToSection(e, "#home")}
-              className={`text-2xl font-bold ${
+              className={`text-2xl font-bold font-dancing-script ${
                 scrolled ? "text-coral-500" : "text-white"
               }`}
             >
-              AnastasieNervais@80
+              Ana's 80th Birthday
             </Link>
 
             {/* Desktop Navigation */}

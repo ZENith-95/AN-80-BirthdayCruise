@@ -72,19 +72,19 @@ export default function TravelTips() {
             </div>
             <h3 className="text-2xl font-bold text-gray-800 mb-4">Packing List</h3>
             <ul className="space-y-3 text-gray-600">
-              <li className="flex items-start">
+              {/* <li className="flex items-start">
                 <span className="text-turquoise-500 font-bold mr-2">•</span>
                 <span>
                   <strong>Required:</strong> Passport valid for 6+ months after travel
                 </span>
-              </li>
+              </li> */}
               <li className="flex items-start">
                 <span className="text-turquoise-500 font-bold mr-2">•</span>
                 <span>Tropical attire, swimwear, sunscreen, hat</span>
               </li>
               <li className="flex items-start">
                 <span className="text-turquoise-500 font-bold mr-2">•</span>
-                <span>One formal outfit for Mom's birthday dinner</span>
+                <span>One formal outfit for Captain's Toast/Dinner</span>
               </li>
             </ul>
           </motion.div>
@@ -100,21 +100,21 @@ export default function TravelTips() {
             <div className="bg-gradient-to-br from-gold-400 to-gold-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 shadow-md">
               <Car className="w-8 h-8 text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Transportation</h3>
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">Boarding</h3>
             <ul className="space-y-3 text-gray-600">
               <li className="flex items-start">
                 <span className="text-gold-500 font-bold mr-2">•</span>
-                <span>Port: Tampa, FL</span>
+                <span>Port: Tampa, Florida</span>
               </li>
               <li className="flex items-start">
                 <span className="text-gold-500 font-bold mr-2">•</span>
-                <span>Boarding time: **:00 AM - **:30 PM on May 11th</span>
+                <span>Boarding time: 11:00 AM - 3:30 PM on May 11th</span>
               </li>
             </ul>
           </motion.div>
         </div>
 
-        <motion.div
+        {/* <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -144,7 +144,7 @@ export default function TravelTips() {
               </p>
             </div>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   )

@@ -19,7 +19,7 @@ export default function Home() {
       <Itinerary />
       <Booking />
       <TravelTips />
-      <Newsletter />
+      {/* <Newsletter /> */}
       <Footer />
       <ScrollToTopButton />
     </div>
