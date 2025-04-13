@@ -129,7 +129,7 @@ export default function Hero() {
             <p
               className={`relative text-2xl md:text-3xl text-white mb-8 px-6 py-3 font-medium ${playfair.className}`}
             >
-              A 7-Day Western Caribbean Adventure – May 11–17, 2025
+              A 6-Day Western Caribbean Adventure – May 11–17, 2026
             </p>
           </motion.div>
 
