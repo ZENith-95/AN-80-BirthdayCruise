@@ -20,7 +20,7 @@ const dancingScript = Dancing_Script({
 export const metadata: Metadata = {
   title: "Ana's 80th Birthday Cruise Celebration",
   description:
-    "Join us for a 7-Day Western Caribbean Adventure to celebrate Mom's 80th birthday!",
+    "Join us for a 6-Day Western Caribbean Adventure to celebrate Mom's 80th birthday!",
   icons: {
     icon: '/favicon_ana.png',
   },
